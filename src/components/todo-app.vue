@@ -14,11 +14,13 @@
     <!-- main section -->
     <section class="main" v-show="todos.length">
       <input
+        id="toggle-all"
         class="toggle-all"
         type="checkbox"
         :checked="allChecked"
         @change="toggleAll(!allChecked)"
       >
+      <label for="toggle-all"></label>
       <ul class="todo-list">
         <todo v-for="(todo, key) in todos"
           :todo="todo"
@@ -29,14 +31,14 @@
       </ul>
     </section>
     <!-- footer -->
-    <footer class="footer" v-show="todolist$.length">
+    <footer class="footer" v-show="todolist$.length" v-cloak>
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
         {{ remaining | pluralize('item') }} left
       </span>
       <ul class="filters">
         <li v-for="(status, key) in statuses" :key="key">
-          <button :disabled="visibility === status" @click="visibility = status">{{ status }}</button>
+          <a :class="{ selected: visibility === status }" :disabled="visibility === status" @click="visibility = status">{{ status }}</a>
         </li>
       </ul>
       <button
