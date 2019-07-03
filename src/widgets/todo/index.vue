@@ -1,10 +1,7 @@
 <template>
-  <section class="todoapp">
+  <section>
     <!-- header -->
-    <header class="header">
-      <h1>todos widget</h1>
-    </header>
-
+    <slot name="header"></slot>
     <!-- top-toolbar -->
     <section>
       <input
@@ -55,11 +52,7 @@
     </section>
 
     <!-- footer -->
-    <footer>
-      <p>
-        <span class="todo-count">Well done!</span>
-      </p>
-    </footer>
+    <slot name="footer"></slot>
   </section>
 </template>
 
