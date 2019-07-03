@@ -2,7 +2,11 @@
   <section class="todoapp">
     <!-- header -->
     <header class="header">
-      <h1>todos</h1>
+      <h1>todos widget</h1>
+    </header>
+
+    <!-- top-toolbar -->
+    <section>
       <input
         class="new-todo"
         autofocus
@@ -10,7 +14,8 @@
         placeholder="What needs to be done?"
         @keyup.enter="tryAddTodo"
       >
-    </header>
+    </section>
+
     <!-- main section -->
     <section class="main" v-show="todos.length">
       <input
@@ -30,8 +35,9 @@
         ></todo>
       </ul>
     </section>
-    <!-- footer -->
-    <footer class="footer" v-show="todolist$.length" v-cloak>
+
+    <!-- bottom-toolbar -->
+    <section class="footer" v-show="todolist$.length" v-cloak>
       <span class="todo-count">
         <strong>{{ remaining }}</strong>
         {{ remaining | pluralize('item') }} left
@@ -46,12 +52,19 @@
         v-show="todos.length > remaining"
         @click="clearCompleted"
       >Clear completed</button>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <p>
+        <span class="todo-count">Well done!</span>
+      </p>
     </footer>
   </section>
 </template>
 
 <script>
-import Todo from "@/components/Todo.vue"
+import Todo from "./components/Todo.vue"
 import TodoService from '@/services/todo.service'
 
 import { commitState, restoreState } from "@/services/local-storage.service"
