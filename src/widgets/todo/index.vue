@@ -19,15 +19,23 @@
     <!-- main section -->
     <section class="main" v-show="todos.length">
       <ul class="todo-list">
-        <todo v-for="(todo, key) in todos"
+        <todo v-for="todo in todos"
           :todo="todo"
-          :key="key"
+          :key="todo.id"
           @edited="handleEdited"
           @removed="handleRemoved"
-        ></todo>
+        >
+          <li slot-scope="{ editing, toggleTodo, removeTodo }" class="todo" :class="{ completed: todo.done, editing: editing }">
+            <div class="view">
+              <input class="toggle" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
+              <label v-text="todo.text"></label>
+              <button class="destroy" @click="removeTodo(todo)"></button>
+            </div>
+          </li>
+        </todo>
       </ul>
     </section>
-
+    
     <!-- bottom-toolbar -->
     <slot name="bottom-toolbar"
       :todos="todos"

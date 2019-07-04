@@ -5,7 +5,7 @@
         <header slot="header" class="header">
           <h1>todos widget</h1>
         </header>
-        <section slot="top-toolbar" slot-scope="{ inputAttrs, addItem, todos, allChecked, toggleAll }">
+        <template slot="top-toolbar" slot-scope="{ inputAttrs, addItem, todos, allChecked, toggleAll }">
           <input
             class="new-todo"
             autofocus
@@ -25,7 +25,7 @@
             >
             <label for="toggle-all"></label>
           </section>
-        </section>
+        </template>
 
         <section slot="bottom-toolbar" slot-scope="{ todos, remaining, statuses, visibility, clearCompleted, setVisibility }" class="footer" v-cloak>
           <span class="todo-count">

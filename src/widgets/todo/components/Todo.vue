@@ -1,22 +1,3 @@
-<template>
-  <li class="todo" :key="todo.id" :class="{ completed: todo.done, editing: editing }">
-    <div class="view">
-      <input class="toggle" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
-      <label v-text="todo.text" @dblclick="startEdit"></label>
-      <button class="destroy" @click="removeTodo(todo)"></button>
-    </div>
-    <input
-      class="edit"
-      v-show="editing"
-      v-focus="editing"
-      :value="todo.text"
-      @keyup.enter="doneEdit"
-      @keyup.esc="cancelEdit"
-      @blur="doneEdit"
-    >
-  </li>
-</template>
-
 <script>
 export default {
   props: ["todo"],
@@ -52,6 +33,7 @@ export default {
       this.editing = false;
     },
     toggleTodo() {
+      console.log('toggleTodo', this)
       this.editTodo({ done: !this.todo.done })
     },
     editTodo({ text, done }) {
@@ -59,7 +41,14 @@ export default {
     },
     removeTodo(item) {
       this.$emit('removed', { item })
-    }
-  }
+    },
+  },
+  render() {
+    return this.$scopedSlots.default({
+      editing: this.editing,
+      toggleTodo: this.toggleTodo,
+      removeTodo: this.removeTodo,
+    })
+  },
 };
 </script>
