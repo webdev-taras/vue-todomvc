@@ -25,17 +25,26 @@
           @edited="handleEdited"
           @removed="handleRemoved"
         >
-          <li slot-scope="{ editing, toggleTodo, removeTodo }" class="todo" :class="{ completed: todo.done, editing: editing }">
+          <li slot-scope="{ editing, toggleTodo, removeTodo, startEdit, doneEdit, cancelEdit }" class="todo" :class="{ completed: todo.done, editing: editing }">
             <div class="view">
               <input class="toggle" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
-              <label v-text="todo.text"></label>
+              <label v-text="todo.text" @dblclick="startEdit"></label>
               <button class="destroy" @click="removeTodo(todo)"></button>
             </div>
+            <input
+              class="edit"
+              v-show="editing"
+              v-focus="editing"
+              :value="todo.text"
+              @keyup.enter="doneEdit"
+              @keyup.esc="cancelEdit"
+              @blur="doneEdit"
+            >
           </li>
         </todo>
       </ul>
     </section>
-    
+
     <!-- bottom-toolbar -->
     <slot name="bottom-toolbar"
       :todos="todos"

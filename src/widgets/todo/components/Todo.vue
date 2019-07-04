@@ -6,15 +6,6 @@ export default {
       editing: false
     };
   },
-  directives: {
-    focus(el, { value }, { context }) {
-      if (value) {
-        context.$nextTick(() => {
-          el.focus();
-        });
-      }
-    }
-  },
   methods: {
     doneEdit(e) {
       const value = e.target.value.trim();
@@ -33,7 +24,6 @@ export default {
       this.editing = false;
     },
     toggleTodo() {
-      console.log('toggleTodo', this)
       this.editTodo({ done: !this.todo.done })
     },
     editTodo({ text, done }) {
@@ -48,6 +38,9 @@ export default {
       editing: this.editing,
       toggleTodo: this.toggleTodo,
       removeTodo: this.removeTodo,
+      startEdit: this.startEdit,
+      doneEdit: this.doneEdit,
+      cancelEdit: this.cancelEdit,
     })
   },
 };

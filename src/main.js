@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import VueRx from 'vue-rx'
 
+import "./directives/focus.directive"
+
 Vue.use(VueRx)
 Vue.config.productionTip = false
 
