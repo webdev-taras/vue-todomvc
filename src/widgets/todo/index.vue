@@ -1,72 +1,4 @@
-<template>
-  <section>
-    <!-- header -->
-    <slot name="header"></slot>
-    <!-- top-toolbar -->
-    <slot name="top-toolbar"
-      :inputAttrs="{ value: newTodo }"
-      :addItem="addItem"
-      :todos="todos"
-      :remaining="remaining"
-      :statuses="statuses"
-      :visibility="visibility"
-      :allChecked="allChecked"
-
-      :toggleAll="toggleAll"
-      :clearCompleted="clearCompleted"
-    ></slot>
-
-    <!-- main section -->
-    <section class="main" v-show="todos.length">
-      <ul class="todo-list">
-        <todo v-for="todo in todos"
-          :todo="todo"
-          :key="todo.id"
-          @edited="handleEdited"
-          @removed="handleRemoved"
-        >
-          <li slot-scope="{ editing, toggleTodo, removeTodo, startEdit, doneEdit, cancelEdit }" class="todo" :class="{ completed: todo.done, editing: editing }">
-            <div class="view">
-              <input class="toggle" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
-              <label v-text="todo.text" @dblclick="startEdit"></label>
-              <button class="destroy" @click="removeTodo(todo)"></button>
-            </div>
-            <input
-              class="edit"
-              v-show="editing"
-              v-focus="editing"
-              :value="todo.text"
-              @keyup.enter="doneEdit"
-              @keyup.esc="cancelEdit"
-              @blur="doneEdit"
-            >
-          </li>
-        </todo>
-      </ul>
-    </section>
-
-    <!-- bottom-toolbar -->
-    <slot name="bottom-toolbar"
-      :todos="todos"
-      :remaining="remaining"
-      :statuses="statuses"
-      :visibility="visibility"
-      :allChecked="allChecked"
-
-      :toggleAll="toggleAll"
-      :clearCompleted="clearCompleted"
-      :setVisibility="setVisibility"
-
-      v-show="todolist$.length"
-    ></slot>
-
-    <!-- footer -->
-    <slot name="footer"></slot>
-  </section>
-</template>
-
 <script>
-import Todo from "./components/Todo.vue"
 import TodoService from '@/services/todo.service'
 
 import { commitState, restoreState } from "@/services/local-storage.service"
@@ -85,7 +17,6 @@ const {
 const todoService = new TodoService({ data })
 
 export default {
-  components: { Todo },
   data() {
     return {
       newTodo: '',
@@ -128,6 +59,26 @@ export default {
       this.visibility = value
     },
   },
+  
+  render() {
+    return this.$scopedSlots.default({
+      inputAttrs: { value: this.newTodo },
+      addItem: this.addItem,
+      todos: this.todos,
+      remaining: this.remaining,
+      statuses: this.statuses,
+      visibility: this.visibility,
+      allChecked: this.allChecked,
+
+      toggleAll: this.toggleAll,
+      clearCompleted: this.clearCompleted,
+      setVisibility: this.setVisibility,
+
+      handleEdited: this.handleEdited,
+      handleRemoved: this.handleRemoved,
+    })
+  },
+
   created() {
     this.subscription = todoService.data$.subscribe(todos => {
       const { visibility } = this
