@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Dashboard from './views/Dashboard.vue'
 
 Vue.use(Router)
 
@@ -10,8 +10,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/todos',
+      name: 'todos',
+      component: () => import('./views/Todos.vue')
+    },
+    {
+      path: '/incoming',
+      name: 'incoming',
+      component: () => import('./views/Incoming.vue')
     },
     {
       path: '/about',

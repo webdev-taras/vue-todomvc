@@ -18,7 +18,7 @@
         handleRemoved
       }">
         <header class="header">
-          <h1>todos widget</h1>
+          <h1>todos</h1>
         </header>
 
           <input
@@ -104,7 +104,7 @@ import TodoWidget from '@/widgets/todo'
 import Todo from '@/widgets/todo/components/Todo'
 
 export default {
-  name: 'home',
+  name: 'todos',
   components: {
     TodoWidget,
     Todo
