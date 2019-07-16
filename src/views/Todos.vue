@@ -47,7 +47,10 @@
               @edited="handleEdited"
               @removed="handleRemoved"
             >
-              <li slot-scope="{ editing, toggleTodo, removeTodo, startEdit, doneEdit, cancelEdit }" class="todo" :class="{ completed: todo.done, editing: editing }">
+              <li slot-scope="{ editing, toggleTodo, removeTodo, startEdit, doneEdit, cancelEdit }"
+								class="todo"
+								:class="{ completed: todo.done, editing: editing }"
+							>
                 <div class="view">
                   <input class="toggle" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
                   <label v-text="todo.text" @dblclick="startEdit"></label>
@@ -78,7 +81,7 @@
                 :class="{ selected: visibility === status }"
                 :disabled="visibility === status"
                 @click=setVisibility(status)
-              >{{ status }}</a>
+              >{{ status | capitalize }}</a>
             </li>
           </ul>
           <button

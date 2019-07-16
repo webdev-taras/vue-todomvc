@@ -4,6 +4,7 @@ import router from './router'
 import VueRx from 'vue-rx'
 
 import "./directives/focus.directive"
+import "./filters/capitalize.filter"
 
 Vue.use(VueRx)
 Vue.config.productionTip = false
