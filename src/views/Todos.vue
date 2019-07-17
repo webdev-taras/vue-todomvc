@@ -112,9 +112,6 @@ export default {
     TodoWidget,
     Todo
   },
-  filters: {
-    pluralize: (n, w) => (n === 1 ? w : w + "s")
-  },
 }
 </script>
 
