@@ -11,7 +11,6 @@ const todoFilters = {
 
 const {
   todos: data = [],
-  visibility: defaultVisibility = 'all'
 } = restoreState()
 
 const todoService = new TodoService({ data })
@@ -21,7 +20,7 @@ export default {
     return {
       newTodo: '',
       statuses: Object.keys(todoFilters),
-      visibility: defaultVisibility
+      visibility: 'all'
     }
   },
   subscriptions() {
@@ -31,7 +30,7 @@ export default {
   },
   computed: {
     todos() {
-      const status = this.visibility || defaultVisibility
+      const status = this.visibility
       return todoFilters[status](this.todolist$)
     },
     remaining() {
@@ -57,6 +56,10 @@ export default {
     setVisibility(value) {
       console.log('setVisibility', value)
       this.visibility = value
+
+      const todos = this.todolist$
+      const visibility = this.visibility
+      commitState({ todos, visibility })
     },
   },
   
@@ -80,6 +83,9 @@ export default {
   },
 
   created() {
+    const { visibility } = restoreState()
+    this.visibility = visibility
+
     this.subscription = todoService.data$.subscribe(todos => {
       const { visibility } = this
       commitState({ todos, visibility })
