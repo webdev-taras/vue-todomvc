@@ -84,7 +84,7 @@ export default {
 
   created() {
     const { visibility } = restoreState()
-    this.visibility = visibility
+    this.visibility = visibility || 'all'
 
     this.subscription = todoService.data$.subscribe(todos => {
       const { visibility } = this
