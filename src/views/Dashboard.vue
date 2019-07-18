@@ -56,7 +56,7 @@ export default {
   line-height: 1;
   align-items: center;
   font-size: .875rem;
-  background-color: #bcdefa;
+  background-color: #efefef;
   color: #1c3d5a;
   border-radius: .25rem;
   user-select: none;
